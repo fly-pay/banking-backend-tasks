@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  corporate-db:
+    image: postgres:14-alpine
+    container_name: corporate-db
+    networks:
+      - banknet
+    environment:
+      - POSTGRES_DB=micro-banking-db
+      - POSTGRES_USER=${CORPORATE_DB_USERNAME}
+      - POSTGRES_PASSWORD=${CORPORATE_DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - corporate_postgres_data:/var/lib/postgresql/data
+#      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  personal-user-db:
+    image: postgres:14-alpine
+    container_name: personal-user-db
+    networks:
+      - banknet
+    environment:
+      - POSTGRES_DB=personal-user-db
+      - POSTGRES_USER=${PERSONAL_DB_USERNAME}
+      - POSTGRES_PASSWORD=${PERSONAL_DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - personal_postgres_data:/var/lib/postgresql/data
+#      - ./personal-schema.sql:/docker-entrypoint-initdb.d/personal-schema.sql
+
+  nickname-service:
+    build: ../nickname-service
+    depends_on:
+      - corporate-db
+    networks:
+      - banknet
+    ports:
+      - "3001:3001"
+      - "9093:9093"
+    environment:
+      - DB_URL=${CORPORATE_DB_URL}
+      - DB_USERNAME=${CORPORATE_DB_USERNAME}
+      - DB_PASSWORD=${CORPORATE_DB_PASSWORD}
+
+  gateway-service:
+    build: ../gateway-service
+    depends_on:
+      - nickname-service
+      - personal-transaction-service
+    networks:
+      - banknet
+    ports:
+      - "8080:8080"
+
+  personal-user-service:
+    build: ../personal-user-service
+    depends_on:
+      - personal-user-db
+    networks:
+      - banknet
+    ports:
+      - "3501:3501"
+      - "7094:7094"
+    environment:
+      - DB_URL=${PERSONAL_DB_URL}
+      - DB_USERNAME=${PERSONAL_DB_USERNAME}
+      - DB_PASSWORD=${PERSONAL_DB_PASSWORD}
+
+  personal-transaction-service:
+    build: ../personal-transaction-service
+    depends_on:
+      - personal-user-db
+    networks:
+      - banknet
+    ports:
+      - "3502:3502"
+      - "7095:7095"
+    environment:
+      - DB_URL=${PERSONAL_DB_URL}
+      - DB_USERNAME=${PERSONAL_DB_USERNAME}
+      - DB_PASSWORD=${PERSONAL_DB_PASSWORD}
+      - SPRING_PROFILES_ACTIVE=dev
+
+networks:
+  banknet:
+    driver: bridge
+
+volumes:
+  corporate_postgres_data:
+  personal_postgres_data:
