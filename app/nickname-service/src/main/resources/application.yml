@@ -1,0 +1,19 @@
+server:
+  port: 3001
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/microbanking
+    username: leng
+    password: 20122002
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+grpc:
+  server:
+    port: 9093
+

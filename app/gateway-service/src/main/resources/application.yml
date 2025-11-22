@@ -4,11 +4,16 @@ server:
 grpc:
   client:
     nickname-service:
-      address: 'static://nickname-service:9093'
+      address: 'static://localhost:9093'
       negotiation-type: plaintext
     personal-transaction-service:
-      address: 'static://personal-transaction-service:7095'
+      address: 'static://localhost:7095'
       negotiation-type: plaintext
     personal-user-service:
-      address: 'static://personal-user-service:7094'
+      address: 'static://localhost:7094'
       negotiation-type: plaintext
+
+#Need to add this to ensure gateway don't use db for a while
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
