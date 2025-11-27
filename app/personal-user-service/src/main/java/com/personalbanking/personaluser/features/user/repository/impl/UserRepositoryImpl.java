@@ -1,5 +1,6 @@
 package com.personalbanking.personaluser.features.user.repository.impl;
-import com.personalbanking.personaluser.features.getUsersFromAccounts.dto.FromAccountOptionDto;
+
+import com.personalbanking.personaluser.features.user.dtos.GetFromAccount.FromAccountOptionDto;
 import com.personalbanking.personaluser.features.user.dtos.GetMe.*;
 
 import com.personalbanking.personaluser.features.user.dtos.GetRecentTransferList.GetRecentTransferOptionDto;
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -66,7 +66,7 @@ public class UserRepositoryImpl implements UserRepository {
     private final RowMapper<FromAccountOptionDto> fromAccountOptionRowMapper = (rs, rowNum) -> {
 
         return new FromAccountOptionDto(
-                rs.getInt("id"),
+                rs.getLong("id"),
                 rs.getString("account_number"),
                 rs.getDouble("current_balance")
         );
@@ -373,6 +373,7 @@ public class UserRepositoryImpl implements UserRepository {
         );
     }
 
+
     private RowMapper<AccountDetailsResDto> AccountDetailsRowMapper() {
         return (rs, rowNum) ->new AccountDetailsResDto(
                 rs.getLong("id"),
@@ -381,4 +382,6 @@ public class UserRepositoryImpl implements UserRepository {
         );
 
     }
+
+
 }

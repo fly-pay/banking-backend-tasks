@@ -14,12 +14,12 @@ public interface FromAccountOptionOrBuilder extends
   long getId();
 
   /**
-   * <code>string accountNumber = 2;</code>
+   * <code>string account_number = 2;</code>
    * @return The accountNumber.
    */
   java.lang.String getAccountNumber();
   /**
-   * <code>string accountNumber = 2;</code>
+   * <code>string account_number = 2;</code>
    * @return The bytes for accountNumber.
    */
   com.google.protobuf.ByteString

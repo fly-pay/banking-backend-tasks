@@ -1,7 +1,8 @@
 package com.personalbanking.gateway.dto.userdtos.GetRecentTransferList;
 
-import com.personalbanking.personaluser.features.user.dtos.GetTransactionHistory.GetAccountResDto;
-import com.personalbanking.personaluser.features.user.dtos.GetTransactionHistory.GetUserResDto;
+
+import com.personalbanking.gateway.dto.userdtos.GetTransactionHistory.GetAccountResDto;
+import com.personalbanking.gateway.dto.userdtos.GetTransactionHistory.GetUserResDto;
 
 public record GetRecentTransferOptionDto(
         GetUserResDto getUserResDto,

@@ -150,20 +150,25 @@ public final class UserProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_personalbanking_user_GetRecentTransferListRes_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_personalbanking_user_GetFromAccountReq_descriptor;
+    internal_static_com_personalbanking_user_GetFromAccountsRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_personalbanking_user_GetFromAccountReq_fieldAccessorTable;
+      internal_static_com_personalbanking_user_GetFromAccountsRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_personalbanking_user_FromAccountOption_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_personalbanking_user_FromAccountOption_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_com_personalbanking_user_GetFromAccountRes_descriptor;
+    internal_static_com_personalbanking_user_FromAccountData_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_com_personalbanking_user_GetFromAccountRes_fieldAccessorTable;
+      internal_static_com_personalbanking_user_FromAccountData_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_com_personalbanking_user_GetFromAccountsResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_com_personalbanking_user_GetFromAccountsResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -234,42 +239,44 @@ public final class UserProto {
       "ntTransferListReq\"n\n\030GetRecentTransferLi" +
       "stRes\022R\n\027getRecentTransferOption\030\001 \003(\01321" +
       ".com.personalbanking.user.GetRecentTrans" +
-      "ferOption\"\023\n\021GetFromAccountReq\"G\n\021FromAc" +
-      "countOption\022\n\n\002id\030\001 \001(\003\022\025\n\raccountNumber" +
-      "\030\002 \001(\t\022\017\n\007balance\030\003 \001(\001\"[\n\021GetFromAccoun" +
-      "tRes\022F\n\021fromAccountOption\030\001 \003(\0132+.com.pe" +
-      "rsonalbanking.user.FromAccountOption2\210\t\n" +
-      "\013UserService\022Q\n\005GetMe\022\".com.personalbank" +
-      "ing.user.GetMeReq\032\".com.personalbanking." +
-      "user.GetMeRes\"\000\022Z\n\010UpdateMe\022%.com.person" +
-      "albanking.user.UpdateMeReq\032%.com.persona" +
-      "lbanking.user.UpdateMeRes\"\000\022`\n\016UpdateAut" +
-      "oSave\022%.com.personalbanking.user.AutoSav" +
-      "eReq\032%.com.personalbanking.user.AutoSave" +
-      "Res\"\000\022]\n\tVerifyPin\022&.com.personalbanking" +
-      ".user.VerifyPinReq\032&.com.personalbanking" +
-      ".user.VerifyPinRes\"\000\022i\n\rSwitchAccount\022*." +
-      "com.personalbanking.user.SwitchAccountRe" +
-      "q\032*.com.personalbanking.user.SwitchAccou" +
-      "ntRes\"\000\022T\n\006SetPin\022#.com.personalbanking." +
-      "user.SetPinReq\032#.com.personalbanking.use" +
-      "r.SetPinRes\"\000\022l\n\016ChangePassword\022+.com.pe" +
-      "rsonalbanking.user.ChangePasswordReq\032+.c" +
-      "om.personalbanking.user.ChangePasswordRe" +
-      "s\"\000\022c\n\013AgreePolicy\022(.com.personalbanking" +
-      ".user.AgreePolicyReq\032(.com.personalbanki" +
-      "ng.user.AgreePolicyRes\"\000\022\201\001\n\025GetTransact" +
-      "ionHistory\0222.com.personalbanking.user.Ge" +
-      "tTransactionHistoryReq\0322.com.personalban" +
-      "king.user.GetTransactionHistoryRes\"\000\022\201\001\n" +
-      "\025GetRecentTransferList\0222.com.personalban" +
-      "king.user.GetRecentTransferListReq\0322.com" +
-      ".personalbanking.user.GetRecentTransferL" +
-      "istRes\"\000\022m\n\017GetFromAccounts\022+.com.person" +
-      "albanking.user.GetFromAccountReq\032+.com.p" +
-      "ersonalbanking.user.GetFromAccountRes\"\000B" +
-      ",\n\035com.personalbanking.user.grpcB\tUserPr" +
-      "otoP\001b\006proto3"
+      "ferOption\"\030\n\026GetFromAccountsRequest\"H\n\021F" +
+      "romAccountOption\022\n\n\002id\030\001 \001(\003\022\026\n\016account_" +
+      "number\030\002 \001(\t\022\017\n\007balance\030\003 \001(\001\"\\\n\017FromAcc" +
+      "ountData\022I\n\024from_account_options\030\001 \003(\0132+" +
+      ".com.personalbanking.user.FromAccountOpt" +
+      "ion\"R\n\027GetFromAccountsResponse\0227\n\004data\030\001" +
+      " \001(\0132).com.personalbanking.user.FromAcco" +
+      "untData2\223\t\n\013UserService\022Q\n\005GetMe\022\".com.p" +
+      "ersonalbanking.user.GetMeReq\032\".com.perso" +
+      "nalbanking.user.GetMeRes\"\000\022Z\n\010UpdateMe\022%" +
+      ".com.personalbanking.user.UpdateMeReq\032%." +
+      "com.personalbanking.user.UpdateMeRes\"\000\022`" +
+      "\n\016UpdateAutoSave\022%.com.personalbanking.u" +
+      "ser.AutoSaveReq\032%.com.personalbanking.us" +
+      "er.AutoSaveRes\"\000\022]\n\tVerifyPin\022&.com.pers" +
+      "onalbanking.user.VerifyPinReq\032&.com.pers" +
+      "onalbanking.user.VerifyPinRes\"\000\022i\n\rSwitc" +
+      "hAccount\022*.com.personalbanking.user.Swit" +
+      "chAccountReq\032*.com.personalbanking.user." +
+      "SwitchAccountRes\"\000\022T\n\006SetPin\022#.com.perso" +
+      "nalbanking.user.SetPinReq\032#.com.personal" +
+      "banking.user.SetPinRes\"\000\022l\n\016ChangePasswo" +
+      "rd\022+.com.personalbanking.user.ChangePass" +
+      "wordReq\032+.com.personalbanking.user.Chang" +
+      "ePasswordRes\"\000\022c\n\013AgreePolicy\022(.com.pers" +
+      "onalbanking.user.AgreePolicyReq\032(.com.pe" +
+      "rsonalbanking.user.AgreePolicyRes\"\000\022\201\001\n\025" +
+      "GetTransactionHistory\0222.com.personalbank" +
+      "ing.user.GetTransactionHistoryReq\0322.com." +
+      "personalbanking.user.GetTransactionHisto" +
+      "ryRes\"\000\022\201\001\n\025GetRecentTransferList\0222.com." +
+      "personalbanking.user.GetRecentTransferLi" +
+      "stReq\0322.com.personalbanking.user.GetRece" +
+      "ntTransferListRes\"\000\022x\n\017GetFromAccounts\0220" +
+      ".com.personalbanking.user.GetFromAccount" +
+      "sRequest\0321.com.personalbanking.user.GetF" +
+      "romAccountsResponse\"\000B,\n\035com.personalban" +
+      "king.user.grpcB\tUserProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -437,11 +444,11 @@ public final class UserProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_personalbanking_user_GetRecentTransferListRes_descriptor,
         new java.lang.String[] { "GetRecentTransferOption", });
-    internal_static_com_personalbanking_user_GetFromAccountReq_descriptor =
+    internal_static_com_personalbanking_user_GetFromAccountsRequest_descriptor =
       getDescriptor().getMessageTypes().get(27);
-    internal_static_com_personalbanking_user_GetFromAccountReq_fieldAccessorTable = new
+    internal_static_com_personalbanking_user_GetFromAccountsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_personalbanking_user_GetFromAccountReq_descriptor,
+        internal_static_com_personalbanking_user_GetFromAccountsRequest_descriptor,
         new java.lang.String[] { });
     internal_static_com_personalbanking_user_FromAccountOption_descriptor =
       getDescriptor().getMessageTypes().get(28);
@@ -449,12 +456,18 @@ public final class UserProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_personalbanking_user_FromAccountOption_descriptor,
         new java.lang.String[] { "Id", "AccountNumber", "Balance", });
-    internal_static_com_personalbanking_user_GetFromAccountRes_descriptor =
+    internal_static_com_personalbanking_user_FromAccountData_descriptor =
       getDescriptor().getMessageTypes().get(29);
-    internal_static_com_personalbanking_user_GetFromAccountRes_fieldAccessorTable = new
+    internal_static_com_personalbanking_user_FromAccountData_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_com_personalbanking_user_GetFromAccountRes_descriptor,
-        new java.lang.String[] { "FromAccountOption", });
+        internal_static_com_personalbanking_user_FromAccountData_descriptor,
+        new java.lang.String[] { "FromAccountOptions", });
+    internal_static_com_personalbanking_user_GetFromAccountsResponse_descriptor =
+      getDescriptor().getMessageTypes().get(30);
+    internal_static_com_personalbanking_user_GetFromAccountsResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_com_personalbanking_user_GetFromAccountsResponse_descriptor,
+        new java.lang.String[] { "Data", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

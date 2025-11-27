@@ -2,6 +2,9 @@ package com.personalbanking.gateway.controller.usercontroller;
 
 
 import com.personalbanking.gateway.dto.userdtos.ChangePassword.ChangePasswordReqDto;
+import com.personalbanking.gateway.dto.userdtos.GetFromAccount.FromAccountDataDto;
+import com.personalbanking.gateway.dto.userdtos.GetFromAccount.FromAccountOptionDto;
+import com.personalbanking.gateway.dto.userdtos.GetFromAccount.GetFromAccountResponseDto;
 import com.personalbanking.gateway.dto.userdtos.GetMe.GenderDto;
 import com.personalbanking.gateway.dto.userdtos.GetMe.GetMeResDto;
 import com.personalbanking.gateway.dto.userdtos.GetMe.NationalityDto;
@@ -19,7 +22,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/v1/personal-banking/users")
@@ -71,7 +73,7 @@ public class UserController {
         UpdateMeReq req = UpdateMeReq.newBuilder()
                 .setFullname(updateMeReqDto.fullname())
                 .setDateOfBirth(updateMeReqDto.dateOfBirth())
-                .setGenderId(updateMeReqDto.genderId().toString())
+                .setGenderId(String.valueOf(updateMeReqDto.genderId()))
                 .setNationalityId(updateMeReqDto.nationalityId())
                 .setPhoneNumber(updateMeReqDto.phoneNumber())
                 .setAddress(updateMeReqDto.address())
@@ -235,5 +237,34 @@ public class UserController {
                         ))
                         .toList();
         return restList;
+    }
+
+    @GetMapping("/from-accounts")
+    public ResponseEntity<GetFromAccountResponseDto> getUsersFromAccounts() {
+        return ResponseEntity.ok(getFromAccountResponseDto());
+    }
+
+    private GetFromAccountResponseDto getFromAccountResponseDto() {
+        GetFromAccountsRequest req=GetFromAccountsRequest.newBuilder().build();
+        GetFromAccountsResponse res=userServiceBlockingStub.getFromAccounts(req);
+
+        FromAccountDataDto fromAccountDataDto = new FromAccountDataDto(extractAccountOptions(res));
+        return new GetFromAccountResponseDto(fromAccountDataDto);
+    }
+
+    private List<FromAccountOptionDto> extractAccountOptions(GetFromAccountsResponse response) {
+
+        FromAccountData fromAccountData = response.getData();
+        List<FromAccountOption> fromAccountOptions = fromAccountData.getFromAccountOptionsList();
+        return fromAccountOptions.stream()
+                .map(this::toFromAccontOptionDto).toList();
+    }
+
+    private FromAccountOptionDto toFromAccontOptionDto(FromAccountOption fromAccountOption) {
+        return new FromAccountOptionDto(
+                fromAccountOption.getId(),
+                fromAccountOption.getAccountNumber(),
+                fromAccountOption.getBalance()
+        );
     }
 }

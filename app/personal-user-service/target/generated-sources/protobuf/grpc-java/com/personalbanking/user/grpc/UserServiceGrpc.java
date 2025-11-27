@@ -325,29 +325,29 @@ public final class UserServiceGrpc {
     return getGetRecentTransferListMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<com.personalbanking.user.grpc.GetFromAccountReq,
-      com.personalbanking.user.grpc.GetFromAccountRes> getGetFromAccountsMethod;
+  private static volatile io.grpc.MethodDescriptor<com.personalbanking.user.grpc.GetFromAccountsRequest,
+      com.personalbanking.user.grpc.GetFromAccountsResponse> getGetFromAccountsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "GetFromAccounts",
-      requestType = com.personalbanking.user.grpc.GetFromAccountReq.class,
-      responseType = com.personalbanking.user.grpc.GetFromAccountRes.class,
+      requestType = com.personalbanking.user.grpc.GetFromAccountsRequest.class,
+      responseType = com.personalbanking.user.grpc.GetFromAccountsResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<com.personalbanking.user.grpc.GetFromAccountReq,
-      com.personalbanking.user.grpc.GetFromAccountRes> getGetFromAccountsMethod() {
-    io.grpc.MethodDescriptor<com.personalbanking.user.grpc.GetFromAccountReq, com.personalbanking.user.grpc.GetFromAccountRes> getGetFromAccountsMethod;
+  public static io.grpc.MethodDescriptor<com.personalbanking.user.grpc.GetFromAccountsRequest,
+      com.personalbanking.user.grpc.GetFromAccountsResponse> getGetFromAccountsMethod() {
+    io.grpc.MethodDescriptor<com.personalbanking.user.grpc.GetFromAccountsRequest, com.personalbanking.user.grpc.GetFromAccountsResponse> getGetFromAccountsMethod;
     if ((getGetFromAccountsMethod = UserServiceGrpc.getGetFromAccountsMethod) == null) {
       synchronized (UserServiceGrpc.class) {
         if ((getGetFromAccountsMethod = UserServiceGrpc.getGetFromAccountsMethod) == null) {
           UserServiceGrpc.getGetFromAccountsMethod = getGetFromAccountsMethod =
-              io.grpc.MethodDescriptor.<com.personalbanking.user.grpc.GetFromAccountReq, com.personalbanking.user.grpc.GetFromAccountRes>newBuilder()
+              io.grpc.MethodDescriptor.<com.personalbanking.user.grpc.GetFromAccountsRequest, com.personalbanking.user.grpc.GetFromAccountsResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetFromAccounts"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.personalbanking.user.grpc.GetFromAccountReq.getDefaultInstance()))
+                  com.personalbanking.user.grpc.GetFromAccountsRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  com.personalbanking.user.grpc.GetFromAccountRes.getDefaultInstance()))
+                  com.personalbanking.user.grpc.GetFromAccountsResponse.getDefaultInstance()))
               .setSchemaDescriptor(new UserServiceMethodDescriptorSupplier("GetFromAccounts"))
               .build();
         }
@@ -476,8 +476,8 @@ public final class UserServiceGrpc {
 
     /**
      */
-    default void getFromAccounts(com.personalbanking.user.grpc.GetFromAccountReq request,
-        io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetFromAccountRes> responseObserver) {
+    default void getFromAccounts(com.personalbanking.user.grpc.GetFromAccountsRequest request,
+        io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetFromAccountsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetFromAccountsMethod(), responseObserver);
     }
   }
@@ -591,8 +591,8 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public void getFromAccounts(com.personalbanking.user.grpc.GetFromAccountReq request,
-        io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetFromAccountRes> responseObserver) {
+    public void getFromAccounts(com.personalbanking.user.grpc.GetFromAccountsRequest request,
+        io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetFromAccountsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetFromAccountsMethod(), getCallOptions()), request, responseObserver);
     }
@@ -686,7 +686,7 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.personalbanking.user.grpc.GetFromAccountRes getFromAccounts(com.personalbanking.user.grpc.GetFromAccountReq request) {
+    public com.personalbanking.user.grpc.GetFromAccountsResponse getFromAccounts(com.personalbanking.user.grpc.GetFromAccountsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetFromAccountsMethod(), getCallOptions(), request);
     }
@@ -790,8 +790,8 @@ public final class UserServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<com.personalbanking.user.grpc.GetFromAccountRes> getFromAccounts(
-        com.personalbanking.user.grpc.GetFromAccountReq request) {
+    public com.google.common.util.concurrent.ListenableFuture<com.personalbanking.user.grpc.GetFromAccountsResponse> getFromAccounts(
+        com.personalbanking.user.grpc.GetFromAccountsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetFromAccountsMethod(), getCallOptions()), request);
     }
@@ -867,8 +867,8 @@ public final class UserServiceGrpc {
               (io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetRecentTransferListRes>) responseObserver);
           break;
         case METHODID_GET_FROM_ACCOUNTS:
-          serviceImpl.getFromAccounts((com.personalbanking.user.grpc.GetFromAccountReq) request,
-              (io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetFromAccountRes>) responseObserver);
+          serviceImpl.getFromAccounts((com.personalbanking.user.grpc.GetFromAccountsRequest) request,
+              (io.grpc.stub.StreamObserver<com.personalbanking.user.grpc.GetFromAccountsResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -962,8 +962,8 @@ public final class UserServiceGrpc {
           getGetFromAccountsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
-              com.personalbanking.user.grpc.GetFromAccountReq,
-              com.personalbanking.user.grpc.GetFromAccountRes>(
+              com.personalbanking.user.grpc.GetFromAccountsRequest,
+              com.personalbanking.user.grpc.GetFromAccountsResponse>(
                 service, METHODID_GET_FROM_ACCOUNTS)))
         .build();
   }

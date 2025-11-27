@@ -1,5 +1,6 @@
 package com.personalbanking.personaluser.features.user.service;
 
+import com.personalbanking.personaluser.features.user.dtos.GetFromAccount.FromAccountOptionDto;
 import com.personalbanking.personaluser.features.user.dtos.GetMe.GetMeResDto;
 import com.personalbanking.personaluser.features.user.dtos.GetRecentTransferList.GetRecentTransferOptionDto;
 import com.personalbanking.personaluser.features.user.dtos.GetTransactionHistory.GetTransactionHistoryOptionDto;
@@ -12,7 +13,6 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @GrpcService
@@ -440,5 +440,40 @@ public class UserService extends UserServiceGrpc.UserServiceImplBase {
                             .asRuntimeException()
             );
         }
+    }
+
+    @Override
+    public void getFromAccounts(GetFromAccountsRequest request, StreamObserver<GetFromAccountsResponse> responseObserver) {
+
+        Long userId = getCurrentLoggedInUserId();
+
+        List<FromAccountOptionDto> fromAccountOptions = userRepository.findAllFromAccountsByUserId(userId);
+
+        List<FromAccountOption> fromAccountOptionsGrpc = fromAccountOptions.stream().map(this::toFromAccountOptionsGrpc).toList();
+
+        FromAccountData data = toFromAccountData(fromAccountOptionsGrpc);
+
+        GetFromAccountsResponse response = toGetFromAccountsResponse(data);
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
+
+    private GetFromAccountsResponse toGetFromAccountsResponse(FromAccountData data) {
+        return GetFromAccountsResponse.newBuilder().setData(data).build();
+    }
+
+    private FromAccountData toFromAccountData(List<FromAccountOption> fromAccList) {
+        return FromAccountData.newBuilder()
+                .addAllFromAccountOptions(fromAccList)
+                .build();
+    }
+
+    private FromAccountOption toFromAccountOptionsGrpc(FromAccountOptionDto dto) {
+        return FromAccountOption.newBuilder()
+                .setId(dto.id())
+                .setAccountNumber(dto.accountNumber())
+                .setBalance(dto.balance())
+                .build();
     }
 }

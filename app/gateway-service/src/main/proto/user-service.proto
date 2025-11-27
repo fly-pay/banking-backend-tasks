@@ -16,7 +16,7 @@ service UserService{
   rpc AgreePolicy(AgreePolicyReq) returns (AgreePolicyRes){}
   rpc GetTransactionHistory(GetTransactionHistoryReq) returns (GetTransactionHistoryRes){}
   rpc GetRecentTransferList(GetRecentTransferListReq) returns (GetRecentTransferListRes){}
-  rpc GetFromAccounts(GetFromAccountReq) returns(GetFromAccountRes){}
+  rpc GetFromAccounts(GetFromAccountsRequest) returns(GetFromAccountsResponse){}
 }
 //GetMe
 message GetMeReq{
@@ -156,14 +156,18 @@ message GetRecentTransferListRes{
   repeated GetRecentTransferOption getRecentTransferOption=1;
 }
 //Get FromAccount
-message GetFromAccountReq{
+message GetFromAccountsRequest {}
 
-}
 message FromAccountOption {
-  int64 id=1;
-  string accountNumber=2;
-  double balance=3;
+  int64 id = 1;
+  string account_number = 2;
+  double balance = 3;
 }
-message GetFromAccountRes{
-  repeated FromAccountOption fromAccountOption=1;
+
+message FromAccountData {
+  repeated FromAccountOption from_account_options = 1;
+}
+
+message GetFromAccountsResponse {
+  FromAccountData data = 1;
 }

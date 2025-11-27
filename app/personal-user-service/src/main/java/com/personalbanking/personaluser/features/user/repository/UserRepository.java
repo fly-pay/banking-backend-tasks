@@ -1,7 +1,7 @@
 package com.personalbanking.personaluser.features.user.repository;
 
-import com.personalbanking.personaluser.features.getUsersFromAccounts.dto.FromAccountOptionDto;
 
+import com.personalbanking.personaluser.features.user.dtos.GetFromAccount.FromAccountOptionDto;
 import com.personalbanking.personaluser.features.user.dtos.GetMe.GetMeResDto;
 import com.personalbanking.personaluser.features.user.dtos.GetRecentTransferList.GetRecentTransferOptionDto;
 import com.personalbanking.personaluser.features.user.dtos.GetTransactionHistory.GetTransactionHistoryOptionDto;
@@ -15,7 +15,6 @@ public interface UserRepository {
 
     GetMeResDto updateMe(Long userId, UpdateMeReqDto updateMeReqDto);
 
-    List<FromAccountOptionDto> findAllFromAccountsByUserId(Long userId);
 
     String updateSaveReceipt(Long userId, boolean saveReceipt);
 
@@ -37,5 +36,6 @@ public interface UserRepository {
 
     List<GetRecentTransferOptionDto> getRecentTransferList(Long userId);
 
+    List<FromAccountOptionDto> findAllFromAccountsByUserId(Long userId);
 }
 
