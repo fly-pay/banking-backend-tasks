@@ -1,0 +1,172 @@
+syntax="proto3";
+package com.personalbanking.user;
+
+option java_package= "com.personalbanking.user.grpc";
+option java_outer_classname="UserProto";
+option java_multiple_files=true;
+
+service UserService{
+  rpc GetMe(GetMeReq) returns (GetMeRes){}
+  rpc UpdateMe(UpdateMeReq) returns (UpdateMeRes){}
+  rpc UpdateAutoSave(AutoSaveReq) returns (AutoSaveRes){}
+  rpc VerifyPin(VerifyPinReq) returns (VerifyPinRes){}
+  rpc SwitchAccount(SwitchAccountReq) returns (SwitchAccountRes){}
+  rpc SetPin(SetPinReq) returns (SetPinRes){}
+  rpc ChangePassword(ChangePasswordReq) returns (ChangePasswordRes){}
+  rpc AgreePolicy(AgreePolicyReq) returns (AgreePolicyRes){}
+  rpc GetTransactionHistory(GetTransactionHistoryReq) returns (GetTransactionHistoryRes){}
+  rpc GetRecentTransferList(GetRecentTransferListReq) returns (GetRecentTransferListRes){}
+  rpc GetFromAccounts(GetFromAccountsRequest) returns (GetFromAccountsResponse){}
+}
+//GetMe
+message GetMeReq{
+
+}
+message Gender{
+  int32 id=1;
+  string name=2;
+}
+message Nationality{
+  int32 id=1;
+  string name=2;
+}
+message SelectAccountDetails{
+  int32 id=1;
+  string accountNumber=2;
+  double balance=3;
+}
+message GetMeRes{
+  string email=1;
+  string username = 2;
+  string fullname = 3;
+  string phoneNumber = 4;
+  string address = 5;
+  string dateOfBirth = 6;
+  Gender gender=7;
+  Nationality nationality=8;
+  bool isPolicyAgreement = 9;
+  bool isAutoSaveReceipt = 10;
+  bool isFirstTimeLogin = 11;
+  bool hasInitialPin = 12;
+
+  double currentBalance = 13;
+  SelectAccountDetails selectAccountDetails=14;
+}
+//Update Me
+message UpdateMeReq{
+  optional string fullname=1;
+  optional string dateOfBirth=2;
+  optional int32 genderId=3;
+  optional int32 nationalityId=4;
+  optional string phoneNumber=5;
+  optional string address=6;
+}
+message UpdateMeRes{
+  string email=1;
+  string username = 2;
+  string fullname = 3;
+  string phoneNumber = 4;
+  string address = 5;
+  string dateOfBirth = 6;
+  Gender gender=7;
+  Nationality nationality=8;
+  bool isPolicyAgreement = 9;
+  bool isAutoSaveReceipt = 10;
+  bool isFirstTimeLogin = 11;
+  bool hasInitialPin = 12;
+
+  double currentBalance = 13;
+  SelectAccountDetails selectAccountDetails=14;
+}
+//Put AutoSaveReceipt
+message AutoSaveReq{
+  bool autoSaveReceipt=1;
+}
+message AutoSaveRes{
+  string data=1;
+}
+//VerifyPin
+message VerifyPinReq{
+  string oldPin=1;
+}
+message VerifyPinRes{
+  string data=1;
+}
+//Switch Account
+message SwitchAccountReq{
+  int32 accountId=1;
+}
+message SwitchAccountRes{
+  string data=1;
+}
+//Set Pin
+message SetPinReq{
+  string pin=1;
+}
+message SetPinRes{
+  string data=1;
+}
+//Change Password
+message ChangePasswordReq{
+  string oldPassword=1;
+  string newPassword=2;
+}
+message ChangePasswordRes{
+  string data=1;
+}
+//Agree Policy
+message AgreePolicyReq{
+  bool policyAgreement=1;
+}
+message AgreePolicyRes{
+  string data=1;
+}
+//Get Transaction History
+message User{
+  int64 id=1;
+  string name=2;
+}
+message Account{
+  int32 id=1;
+  string accountNumber=2;
+  double balance=3;
+}
+message GetTransactionHistoryOption{
+  User user=1;
+  Account account=2;
+  bool isIncome=3;
+}
+message GetTransactionHistoryReq{
+
+}
+message GetTransactionHistoryRes{
+  repeated GetTransactionHistoryOption getTransactionHistoryOption=1;
+}
+//Get Recent Transfer List
+message GetRecentTransferOption{
+  User user=1;
+  Account account=2;
+  bool isIncome=3;
+}
+message GetRecentTransferListReq{
+
+}
+message GetRecentTransferListRes{
+  repeated GetRecentTransferOption getRecentTransferOption=1;
+}
+//Get FromAccount
+message GetFromAccountsRequest {}
+
+message FromAccountOption {
+  int64 id = 1;
+  string account_number = 2;
+  double balance = 3;
+}
+
+message FromAccountData {
+  repeated FromAccountOption from_account_options = 1;
+}
+
+message GetFromAccountsResponse {
+  FromAccountData data = 1;
+}

@@ -1,5 +1,8 @@
 package com.personalbanking.gateway.controller.nicknametransfer;
-
+import com.personalbanking.personaltransaction.proto.nickname_transfer.NicknameTransferServiceGrpc;
+import com.personalbanking.personaltransaction.proto.nickname_transfer.NicknameTransferServiceGrpc.NicknameTransferServiceBlockingStub;
+import com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameRequest;
+import com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameResponse;
 import com.personalbanking.gateway.dto.nicknametransfer.PrepareTransferByNicknameRequestDto;
 import com.personalbanking.gateway.dto.nicknametransfer.PrepareTransferByNicknameResponseDto;
 import io.grpc.StatusRuntimeException;
@@ -16,16 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class NicknameTransferController {
 
     @GrpcClient("personal-transaction-service")
-    private com.personalbanking.personaltransaction.proto.nickname_transfer.NicknameTransferServiceGrpc.NicknameTransferServiceBlockingStub nicknameTransferService;
+    private NicknameTransferServiceBlockingStub nicknameTransferService;
 
     @PostMapping("/prepare")
     public ResponseEntity<PrepareTransferByNicknameResponseDto> prepareTransfer(@RequestBody PrepareTransferByNicknameRequestDto requestDto) {
 
-        com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameRequest request = com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameRequest.newBuilder()
+        PrepareTransferByNicknameRequest request = com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameRequest.newBuilder()
                 .setNicknameId(requestDto.nicknameId())
                 .build();
         try {
-            com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameResponse response = nicknameTransferService.prepareTransferByNickname(request);
+            PrepareTransferByNicknameResponse response = nicknameTransferService.prepareTransferByNickname(request);
 
             PrepareTransferByNicknameResponseDto responseDto = toDto(response);
 
@@ -49,7 +52,7 @@ public class NicknameTransferController {
         }
     }
 
-    private PrepareTransferByNicknameResponseDto toDto(com.personalbanking.personaltransaction.proto.nickname_transfer.PrepareTransferByNicknameResponse response){
+    private PrepareTransferByNicknameResponseDto toDto(PrepareTransferByNicknameResponse response){
         return new PrepareTransferByNicknameResponseDto(
                 response.getSuccess(),
                 response.getMessage(),

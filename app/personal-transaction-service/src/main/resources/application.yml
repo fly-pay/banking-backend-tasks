@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/microbanking
+    username: leng
+    password: 20122002
     driverClassName: org.postgresql.Driver
   sql:
     init:
